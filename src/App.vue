@@ -12,10 +12,24 @@ export default {
   },
   data() {
     return {
-      ignoredFolders: [".gradle", ".idea", "node_modules", "build", "dist", ".venv", ".git", "venv", ".vscode", ".settings", ".next", ".bin"],
+      ignoredFolders: [
+        ".gradle",
+        ".idea",
+        "node_modules",
+        "build",
+        "dist",
+        ".venv",
+        ".git",
+        "venv",
+        ".vscode",
+        ".settings",
+        ".next",
+        ".bin",
+      ],
       ignoredFiles: [],
       endings: true,
       root: true,
+      sort: true,
       name: "",
       fileTree: "",
     };
@@ -39,6 +53,9 @@ export default {
     handleRootChange(checked) {
       this.root = checked;
     },
+    handleSortChange(checked) {
+      this.sort = checked;
+    },
     getTree() {
       this.fileTree = "";
       const folderInput = this.$refs.folderInput;
@@ -46,8 +63,18 @@ export default {
 
       this.name = files[0].webkitRelativePath.split("/")[0];
 
-      const directoryMap = getDirectoryMap(files, this.ignoredFolders, this.ignoredFiles);
-      const tree = createFileTree(directoryMap, this.endings, this.root, this.name);
+      const directoryMap = getDirectoryMap(
+        files,
+        this.ignoredFolders,
+        this.ignoredFiles,
+      );
+      const tree = createFileTree(
+        directoryMap,
+        this.endings,
+        this.root,
+        this.name,
+        this.sort,
+      );
       this.fileTree = tree;
     },
     copy() {
@@ -109,15 +136,34 @@ export default {
             label="Include Root Name"
             tip="name of passed in folder"
           />
+          <CheckBox
+            @update-value="handleSortChange"
+            defaultChecked="checked"
+            label="Sort Tree"
+            tip="sorts tree alphabetically"
+          />
         </div>
         <button @click="getTree" class="btn">Generate Tree</button>
       </section>
-      <article v-if="fileTree" class="w-fit min-w-[calc(60vw)] rounded-lg mx-auto mt-10 py-5 px-20 bg-neutral flex flex-col items-center">
-        <div class="text-gray-300 flex justify-between items-center w-full">
-          <img src="./assets/icon.svg" alt="icon">
+      <article
+        v-if="fileTree"
+        class="mx-auto mt-10 flex w-fit min-w-[calc(60vw)] flex-col items-center rounded-lg bg-neutral px-20 py-5"
+      >
+        <div class="flex w-full items-center justify-between text-gray-300">
+          <img src="./assets/icon.svg" alt="icon" />
           <h2 class="text-2xl">Map of {{ name }}</h2>
-          <button @click="copy" class="tooltip tooltip-top" data-tip="Copy Tree">
-            <svg width="50" height="45" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button
+            @click="copy"
+            class="tooltip tooltip-top"
+            data-tip="Copy Tree"
+          >
+            <svg
+              width="50"
+              height="45"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
@@ -132,7 +178,7 @@ export default {
     </main>
     <footer class="flex shrink-0 items-center justify-between px-2 py-1">
       <p>Folder Mapper | By: cqb13</p>
-      <a href="https://github.com/cqb13">
+      <a href="https://github.com/cqb13/folder-mapper">
         <img src="./assets/github.svg" class="h-7 w-7" alt="github" />
       </a>
     </footer>
