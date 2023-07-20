@@ -25,6 +25,7 @@ export default {
         ".settings",
         ".next",
         ".bin",
+        "target"
       ],
       ignoredFiles: [],
       endings: true,
