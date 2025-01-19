@@ -178,7 +178,7 @@ export default {
       </article>
     </main>
     <footer class="flex shrink-0 items-center justify-between px-2 py-1">
-      <a href="https://cqb13.dev" target="_blank">Folder Mapper | By: Maksim Straus</a>
+      <a href="https://maksimstraus.dev" target="_blank">Folder Mapper | By: Maksim Straus</a>
       <a href="https://github.com/cqb13/folder-mapper">
         <img src="./assets/github.svg" class="h-7 w-7" alt="github" />
       </a>
