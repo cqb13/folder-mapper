@@ -2,7 +2,7 @@
 
 # Folder Mapper
 
-[View Projects](https://foldermap.vercel.app/)
+[View Projects](https://foldermap.cqb13.dev/)
 
 </div>
 
